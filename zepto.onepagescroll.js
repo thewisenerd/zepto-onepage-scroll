@@ -68,11 +68,16 @@
             if (touches && touches.length) {
               startX = touches[0].pageX;
               startY = touches[0].pageY;
-              $this.on('touchmove', touchmove);
+              $this.off('touchmove').on('touchmove', touchmove);
             }
           }
 
           function touchmove(event) {
+            if($("body").hasClass("disabled-onepage-scroll")) {
+              // if plugin is disabled, pass the event
+              return;
+            }
+            event.preventDefault();
             var touches = event.touches;
             if (touches && touches.length) {
               event.preventDefault();
@@ -269,10 +274,10 @@
   			    $("html, body, .wrapper").animate({ scrollTop: 0 }, "fast");
   		    }
 
-  		    $(document).swipeEvents().on("swipeDown",  function(event){
+  		    $(document).swipeEvents().off('swipeDown').on("swipeDown",  function(event){
             if (!$("body").hasClass("disabled-onepage-scroll")) event.preventDefault();
             el.moveUp();
-          }).on("swipeUp", function(event){
+          }).off('swipeUp').on("swipeUp", function(event){
             if (!$("body").hasClass("disabled-onepage-scroll")) event.preventDefault();
             el.moveDown();
           });
