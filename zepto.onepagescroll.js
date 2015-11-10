@@ -368,6 +368,9 @@
   		  $(".onepage-pagination li a").click(function (){
           var page_index = $(this).data("index");
           el.moveTo(page_index);
+          if (settings.updateURL != true) {
+            return false;
+          }
         });
   		}
 
