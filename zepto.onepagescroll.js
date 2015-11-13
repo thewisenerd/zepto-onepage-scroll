@@ -46,6 +46,7 @@
   			lastAnimation = 0,
   			quietPeriod = 300,
   			paginationList = "",
+  			ids = [],
   			body = $("body");
 
 
@@ -163,7 +164,7 @@
   			body.addClass("viewing-page-"+ next_index);
 
   			if (history.replaceState && settings.updateURL == true) {
-  				var href = window.location.href.substr(0,window.location.href.indexOf('#')) + "#" + (parseInt(index) + 1);
+  				var href = window.location.href.substr(0,window.location.href.indexOf('#')) + "#" + (ids[index]);
   				history.pushState( {}, document.title, href );
   			}
   			el3.transformPage(settings, pos, next_index, next);
@@ -210,7 +211,7 @@
   			body.addClass("viewing-page-"+ next_index);
 
   			if (history.replaceState && settings.updateURL == true) {
-  				var href = window.location.href.substr(0,window.location.href.indexOf('#')) + "#" + (parseInt(index) - 1);
+  				var href = window.location.href.substr(0,window.location.href.indexOf('#')) + "#" + (ids[index - 2]);
   				history.pushState( {}, document.title, href );
   			}
   			el4.transformPage(settings, pos, next_index, next);
@@ -246,7 +247,7 @@
   				pos = ((page_index - 1) * 100) * -1;
 
   				if (history.replaceState && settings.updateURL == true) {
-  					var href = window.location.href.substr(0,window.location.href.indexOf('#')) + "#" + (parseInt(page_index) - 1);
+  					var href = window.location.href.substr(0,window.location.href.indexOf('#')) + "#" + (ids[page_index - 1]);
   					history.pushState( {}, document.title, href );
   				}
   				el5.transformPage(settings, pos, page_index, next);
@@ -309,6 +310,12 @@
   		el.addClass("onepage-wrapper");
   		el.css("position","relative");
   		$.each(sections, function(i, item){
+        var dataidx = $(this).data("section");
+        if ( dataidx == undefined || $.inArray(dataidx, ids) != -1 ) {
+          dataidx = String(i + 1);
+        }
+        ids.push(dataidx);
+
         $(this).addClass("ops-section").data("index", i + 1);
   		  topPos = topPos + 100;
 
@@ -333,8 +340,19 @@
       }
 
   		if(window.location.hash != "" && window.location.hash != "#1") {
-  			var init_index =  window.location.hash.replace("#", ""),
-  			    next = $(settings.sectionContainer + "[data-index='" + (init_index) + "']"),
+  			var init_index =  window.location.hash.replace("#", "");
+
+        if (ids.indexOf(init_index) == -1) {
+          init_index = 1;
+          if (history.replaceState) {
+            var href = window.location.href.substr(0,window.location.href.indexOf('#'));
+            history.pushState( {}, document.title, href );
+          }
+        } else {
+          init_index = ids.indexOf(init_index) + 1;
+        }
+
+  			var next = $(settings.sectionContainer + "[data-index='" + (init_index) + "']"),
   			    next_index = next.data("index");
 
   			$(settings.sectionContainer + "[data-index='" + init_index + "']").addClass("active")
@@ -349,7 +367,7 @@
 
   				body.addClass("viewing-page-" + next_index)
   				if (history.replaceState && settings.updateURL == true) {
-  					var href = window.location.href.substr(0,window.location.href.indexOf('#')) + "#" + (init_index);
+  					var href = window.location.href.substr(0,window.location.href.indexOf('#')) + "#" + (ids[init_index - 1]);
   					history.pushState( {}, document.title, href );
   				}
   			}
@@ -372,9 +390,7 @@
   		  $(".onepage-pagination li a").click(function (){
           var page_index = $(this).data("index");
           el.moveTo(page_index);
-          if (settings.updateURL != true) {
-            return false;
-          }
+          return false;
         });
   		}
 
