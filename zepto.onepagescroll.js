@@ -378,6 +378,10 @@
   		  $(settings.sectionContainer + "[data-index='1']").addClass("active");
   		  body.addClass("viewing-page-1");
   			if(settings.pagination == true) $(".onepage-pagination li a[data-index='1']").addClass("active");
+        if (history.replaceState && settings.updateURL == true) {
+          var href = window.location.href.substr(0,window.location.href.indexOf('#')) + "#" + (ids[0]);
+          history.pushState( {}, document.title, href );
+        }
   		}
 
   		function paginationHandler() {
