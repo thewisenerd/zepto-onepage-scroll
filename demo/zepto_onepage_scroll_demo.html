@@ -1,24 +1,25 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Zepto One Page Scroll by Pete R. | The Pete Design</title>
-	<meta name="title" content="Zepto One Page Scroll by Pete R. | The Pete Design" />
-	<meta name="description" content="Zepto One Page Scroll is the javascript version of the infamous jQuery One Page Scroll. Create an Apple-like one page scroller website (iPhone 5S website) with One Page Scroll plugin" />
-	<link rel="image_src" href="/images/zepto_onepage_scroll_image.png" />
+  <meta charset="utf-8">
+  <title>Zepto One Page Scroll by Pete R. | The Pete Design</title>
+  <meta name="title" content="Zepto One Page Scroll by Pete R. | The Pete Design" />
+  <meta name="description" content="Zepto One Page Scroll is the javascript version of the infamous jQuery One Page Scroll. Create an Apple-like one page scroller website (iPhone 5S website) with One Page Scroll plugin" />
+  <link rel="image_src" href="/images/zepto_onepage_scroll_image.png" />
   <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no">
-	<meta content="http://www.thepetedesign.com/demos/zepto_onepage_scroll_demo.html" property="og:url" />
-	<meta content="http://www.thepetedesign.com/images/zepto_onepage_scroll_image.png" property="og:image" />
-	<link rel="shortcut icon" id="favicon" href="favicon.png"> 
-	<meta name="author" content="Pete R.">
-	<link rel="canonical" href="http://www.thepetedesign.com/demos/zepto_onepage_scroll_demo.html" />
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Pacifico:400' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="zepto.js"></script>
-	<script type="text/javascript" src="modules/fx.js"></script>
-  <script type="text/javascript" src="zepto.onepagescroll.js"></script>
-  <link href='onepage-scroll.css' rel='stylesheet' type='text/css'>
+  <meta content="http://www.thepetedesign.com/demos/zepto_onepage_scroll_demo.html" property="og:url" />
+  <meta content="http://www.thepetedesign.com/images/zepto_onepage_scroll_image.png" property="og:image" />
+  <link rel="shortcut icon" id="favicon" href="favicon.png">
+  <meta name="author" content="Pete R.">
+  <link rel="canonical" href="http://www.thepetedesign.com/demos/zepto_onepage_scroll_demo.html" />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Pacifico:400' rel='stylesheet' type='text/css'>
+  <script type="text/javascript" src="zepto.min.js"></script>
+  <script type="text/javascript" src="modules/fx.js"></script>
+  <script type="text/javascript" src="modules/touch.js"></script>
+  <script type="text/javascript" src="../zepto.onepagescroll.js"></script>
+  <link href='../onepage-scroll.css' rel='stylesheet' type='text/css'>
   <style>
     html {
       height: 100%;
@@ -33,19 +34,19 @@
       height: 100%;
       -webkit-font-smoothing: antialiased;
     }
-    
+
     .wrapper {
-    	height: 100% !important;
-    	height: 100%;
-    	margin: 0 auto; 
-    	overflow: hidden;
+      height: 100% !important;
+      height: 100%;
+      margin: 0 auto;
+      overflow: hidden;
     }
-    
+
     a {
       text-decoration: none;
     }
-    
-    
+
+
     h1, h2 {
       width: 100%;
       float: left;
@@ -77,7 +78,7 @@
       margin-top: 0;
       margin-bottom: 10px;
     }
-    
+
     .pointer {
       color: #9b59b6;
       font-family: 'Pacifico', cursive;
@@ -114,7 +115,7 @@
       width: 100%;
       margin: 0 auto;
     }
-    
+
     .main h1 {
       padding:150px 50px;
       float: left;
@@ -127,11 +128,11 @@
       color: white;
       margin: 0;
     }
-   
+
     .main h1.demo1 {
       background: #1ABC9C;
     }
-    
+
     .reload.bell {
       font-size: 12px;
       padding: 20px;
@@ -142,12 +143,12 @@
       -webkit-border-radius: 50px;
       -moz-border-radius: 50px;
     }
-    
+
     .reload.bell #notification {
       font-size: 25px;
       line-height: 140%;
     }
-    
+
     .reload, .btn{
       display: inline-block;
       border: 4px solid #A2261E;
@@ -204,7 +205,7 @@
       font-weight: bold;
       text-align: center;
     }
-    
+
     .back {
       position: absolute;
       top: 0;
@@ -229,7 +230,7 @@
       color: black;
       background: rgba(255, 255, 255, 0.5);
     }
-    
+
     header {
       position: relative;
       z-index: 10;
@@ -244,13 +245,13 @@
     .main section  {
       overflow: hidden;
     }
-    
+
     .main section > img {
       position: absolute;
       max-width: 100%;
       z-index: 1;
     }
-    
+
     .main section.page1 {
       background:rgb(230, 217, 200);
     }
@@ -343,7 +344,7 @@
       min-height: 100%;
       height: auto;
     }
-    
+
     body.disabled-onepage-scroll .main section .page_container, body.disabled-onepage-scroll .main section.page3 .page_container  {
       padding: 20px;
       margin-top: 150px;
@@ -351,7 +352,7 @@
       -moz-box-sizing: border-box;
       box-sizing: border-box;
     }
-    
+
     body.disabled-onepage-scroll  section .page_container h1{
       text-align: center;
       font-size: 50px;
@@ -361,13 +362,13 @@
       text-align: center;
       width: 100%;
     }
-    
+
     body.disabled-onepage-scroll .main section.page1 > img {
       position: absolute;
       width: 80%;
       left: 10%;
     }
-    
+
     body.disabled-onepage-scroll .main section > img {
       position: relative;
       max-width: 80%;
@@ -379,7 +380,7 @@
       float: none;
       overflow: hidden;
     }
-    
+
     body.disabled-onepage-scroll .main section.page3 .page_container {
       width: 90%;
       margin-left: auto;
@@ -399,7 +400,7 @@
       top: -13px;
       color: white;
     }
-    
+
     .text-btn {
       display: block;
       max-width: 410px;
@@ -416,14 +417,14 @@
       line-height: 200%;
       display: inline-block;
     }
-	  body .socials {
+    body .socials {
       margin-bottom: 0px;
       max-width: 410px;
       display: block;
       float: left;
       clear: both;
     }
-    
+
     @media (max-width: 500px) {
       body .main section .page_container {
         top: 50px;
@@ -445,7 +446,7 @@
         margin-top: 10px;
         padding: 0;
         font-size: 12px;
-        
+
       }
       .txt-btn {
         margin: 12px 25px 12px;
@@ -476,58 +477,64 @@
         -webkit-box-sizing: border-box;
       }
     }
-	</style>
+  </style>
 
 </head>
 <body>
-   
-    <div class="wrapper">	
-      
-	  <div class="main">
-	    
+
+    <div class="wrapper">
+
+    <div class="main">
+
       <section class="page1">
         <div class="page_container">
           <h1><strong>Zepto</strong> One Page Scroll v1.2</h1>
           <h2>Create an Apple-like one page scroller website (iPhone 5S website) with One Page Scroll plugin. (<strong>Zepto Library &amp; Modules Required</strong>)</h2>
           <p class="credit">Created by <a href="http://www.thepetedesign.com">Pete R.</a>, Founder of <a href="http://www.Travelistly.com" target="_blank">Travelistly</a> &amp; <a href="http://www.bucketlistly.com" target="_blank">BucketListly</a></p>
-          
-          
+
+
           <div class="btns">
-            
-  	        <a class="reload btn" href="https://github.com/peachananr/zepto-onepage-scroll">Download on Github</a>
-  	        <p class="text-btn">Looking for a <a href="http://www.thepetedesign.com/demos/onepage_scroll_demo.html">jQuery</a> | <a href="http://www.thepetedesign.com/demos/purejs_onepage_scroll_demo.html">Pure JS</a> version?</p>
-  	      </div>
-  	    </div>
-  	    <img src="phones.png" alt="phones">
+
+            <a class="reload btn" href="https://github.com/peachananr/zepto-onepage-scroll">Download on Github</a>
+            <p class="text-btn">Looking for a <a href="http://www.thepetedesign.com/demos/onepage_scroll_demo.html">jQuery</a> | <a href="http://www.thepetedesign.com/demos/purejs_onepage_scroll_demo.html">Pure JS</a> version?</p>
+          </div>
+        </div>
+        <img src="phones.png" alt="phones">
       </section>
-	    
-	    <section class="page2">
-	      <div class="page_container">
+
+      <section class="page2">
+        <div class="page_container">
           <h1>Ready-to-use plugin</h1>
           <h2>All you need is an HTML markup, call the script and BAM!</h2>
           <code class="html">
-  	        &lt;div class="main"&gt;<br>
-  	          &lt;section&gt;...&lt;/section&gt;<br>
-  	          &lt;section&gt;...&lt;/section&gt;<br>
-  	          ...<br>
-  	        &lt;/div&gt;
-  	      </code>
-  	      <code class="js">
-	          $(".main").onePageScroll();
-	        </code>
-	      </div>
+            &lt;div class="main"&gt;<br>
+              &lt;section&gt;...&lt;/section&gt;<br>
+              &lt;section&gt;...&lt;/section&gt;<br>
+              ...<br>
+            &lt;/div&gt;
+          </code>
+          <code class="js">
+            $(".main").onePageScroll();
+          </code>
+        </div>
       </section>
-	    
-	    <section class="page3">
-	      <div class="page_container">
+
+      <section class="page3">
+        <div class="page_container">
           <h1>Pretty Neat Eh?</h1>
           <h2>You can customize the animation timing, the selector or even the animation easing using CSS3. I can't wait to see what you guys will come up with. Don't forget to grab them for free on Github'</h2>
           <div class="btns">
-  	        <a class="reload btn" href="https://github.com/peachananr/zepto-onepage-scroll">Download on Github</a>
-  	      </div>
-  	    </div>
+            <a class="reload btn" href="https://github.com/peachananr/zepto-onepage-scroll">Download on Github</a>
+          </div>
+        </div>
       </section>
-      
+
+      <section class="page4"></section>
+
+      <section class="page5"></section>
+
+      <section class="page6"></section>
+
     </div>
     <a class="back" href="http://www.thepetedesign.com/#plugins">Back to The Pete Design</a>
     <a class="rehide" href="https://github.com/peachananr/zepto-onepage-scroll"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
@@ -538,7 +545,7 @@
         loop: true
       });
     })
-	</script>
+  </script>
 
 </body>
 </html>
