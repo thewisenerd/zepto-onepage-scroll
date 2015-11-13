@@ -9,9 +9,9 @@
  *
  * Credit: Eike Send for the awesome swipe event
  * https://github.com/peachananr/zepto-onepage-scroll
- * 
  *
- * Zepto Modules Required:  
+ *
+ * Zepto Modules Required:
  * - touch.js
  * - fx.js
  *
@@ -23,7 +23,7 @@
 ;(function($){
   $.extend($.fn, {
     onePageScroll: function(options){
-      
+
       var defaults = {
     		sectionContainer: "section",
     		easing: "ease",
@@ -36,7 +36,7 @@
     		loop: false,
     		responsiveFallback: false
     	};
-    	
+
     	var settings = $.extend({}, defaults, options),
   			el = $(this),
   			sections = $(settings.sectionContainer),
@@ -48,21 +48,21 @@
   			quietPeriod = 300,
   			paginationList = "",
   			body = $("body");
-      
-      
+
+
       /*------------------------------------------------*/
-      /*  Credit: Eike Send for the awesome swipe event */    
+      /*  Credit: Eike Send for the awesome swipe event */
       /*------------------------------------------------*/
-      
+
       $.fn.swipeEvents = function() {
         return this.each(function() {
-        
+
           var startX,
               startY,
               $this = $(this);
-        
+
           $this.on('touchstart', touchstart);
-        
+
           function touchstart(event) {
             var touches = event.touches;
             if (touches && touches.length) {
@@ -71,14 +71,14 @@
               $this.on('touchmove', touchmove);
             }
           }
-        
+
           function touchmove(event) {
             var touches = event.touches;
             if (touches && touches.length) {
               event.preventDefault();
               var deltaX = startX - touches[0].pageX;
               var deltaY = startY - touches[0].pageY;
-        
+
               if (deltaX >= 50) {
                 $this.trigger("swipeLeft");
               }
@@ -96,45 +96,45 @@
               }
             }
           }
-        
+
         });
       };
-      
+
       /*---------------------------------*/
       /*  Function to transform the page */
       /*---------------------------------*/
-      
+
       $.fn.transformPage = function(settings, pos, index, next_el) {
         var el2 = $(this);
-        
+
       	if (typeof settings.beforeMove == 'function') settings.beforeMove(index, next_el);
-        
+
         el2.animate({
           translate3d: "0, " + pos + "%, 0"
         }, settings.animationTime, settings.easing, function() {
           if (typeof settings.afterMove == 'function') settings.afterMove(index);
         });
       }
-      
+
       /*---------------------------------*/
       /*  Function to move down section  */
       /*---------------------------------*/
 
       $.fn.moveDown = function() {
         var timeNow = new Date().getTime();
-        
+
         // Cancel scroll if currently animating or within quiet period
   			if(timeNow - lastAnimation < quietPeriod + settings.animationTime) {
   				event.preventDefault();
   				return;
   			}
-        
+
         var index = $(settings.sectionContainer +".active").data("index"),
   			    current = $(settings.sectionContainer + "[data-index='" + index + "']"),
   			    next = $(settings.sectionContainer + "[data-index='" + (parseInt(index) + 1) + "']"),
   			    el3 = $(this);
 
-        
+
   			if(next.length < 1) {
   				if (settings.loop == true) {
   					pos = 0;
@@ -165,7 +165,7 @@
   			el3.transformPage(settings, pos, next_index, next);
   			lastAnimation = timeNow;
   		}
-      
+
       /*---------------------------------*/
       /*  Function to move up section    */
       /*---------------------------------*/
@@ -178,7 +178,7 @@
   				event.preventDefault();
   				return;
   			}
-        
+
   		  var index = $(settings.sectionContainer +".active").data("index"),
   			    current = $(settings.sectionContainer + "[data-index='" + index + "']"),
   			    next = $(settings.sectionContainer + "[data-index='" + (parseInt(index) - 1) + "']"),
@@ -212,14 +212,14 @@
   			el4.transformPage(settings, pos, next_index, next);
   			lastAnimation = timeNow;
   		}
-      
+
       /*-------------------------------------------*/
       /*  Function to move to specified section    */
       /*-------------------------------------------*/
 
       $.fn.moveTo = function(page_index) {
         var timeNow = new Date().getTime();
-        
+
         // Cancel scroll if currently animating or within quiet period
   			if(timeNow - lastAnimation < quietPeriod + settings.animationTime) {
   				event.preventDefault();
@@ -249,7 +249,7 @@
   				lastAnimation = timeNow;
   			}
   		}
-      
+
       /*-------------------------------------------*/
       /*  Responsive Fallback trigger              */
       /*-------------------------------------------*/
@@ -268,11 +268,11 @@
   			    bodyremoveClass("disabled-onepage-scroll");
   			    $("html, body, .wrapper").animate({ scrollTop: 0 }, "fast");
   		    }
-  		    
-  		    $(document).swipeEvents().on("swipeDown",  function(event){ 
+
+  		    $(document).swipeEvents().on("swipeDown",  function(event){
             if (!$("body").hasClass("disabled-onepage-scroll")) event.preventDefault();
             el.moveUp();
-          }).on("swipeUp", function(event){ 
+          }).on("swipeUp", function(event){
             if (!$("body").hasClass("disabled-onepage-scroll")) event.preventDefault();
             el.moveDown();
           });
@@ -282,22 +282,22 @@
 
   			}
   		}
-      
+
       /*-------------------------------------------*/
       /*  Initialize scroll detection              */
       /*-------------------------------------------*/
 
       function init_scroll(event, delta) {
   			var deltaOfInterest = delta;
-  			
+
   			if (deltaOfInterest < 0) {
   				el.moveDown()
   			} else {
   				el.moveUp()
   			}
   		}
-      
-      
+
+
       /*-------------------------------------------*/
       /*  Prepare Everything                       */
       /*-------------------------------------------*/
@@ -313,10 +313,10 @@
   			}
       });
 
-  		$(document).swipeEvents().on("swipeDown",  function(event){ 
+  		$(document).swipeEvents().on("swipeDown",  function(event){
         if (!$("body").hasClass("disabled-onepage-scroll")) event.preventDefault();
         el.moveUp();
-      }).on("swipeUp", function(event){ 
+      }).on("swipeUp", function(event){
         if (!$("body").hasClass("disabled-onepage-scroll")) event.preventDefault();
         el.moveDown();
       });
@@ -342,7 +342,7 @@
   				if(settings.pagination == true) $(".onepage-pagination li a" + "[data-index='" + init_index + "']").addClass("active");
 
   				document.body.className = document.body.className.replace(/\bviewing-page-\d.*?\b/g, '');
-  				
+
   				body.addClass("viewing-page-" + next_index)
   				if (history.replaceState && settings.updateURL == true) {
   					var href = window.location.href.substr(0,window.location.href.indexOf('#')) + "#" + (init_index);
@@ -412,7 +412,7 @@
   		}
   		return false;
     }
-    
-    
+
+
   })
 })(Zepto)
