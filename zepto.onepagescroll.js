@@ -395,10 +395,14 @@
 
   			if (!body.hasClass("disabled-onepage-scroll")) {
   				switch(e.which) {
-  					case 38:
+  					case 33: // pg up
+  					case 37: // left
+  					case 38: // up
   						if (tag != 'input' && tag != 'textarea') el.moveUp()
   						break;
-  					case 40:
+  					case 34: // pg down
+  					case 39: // right
+  					case 40: // down
   						if (tag != 'input' && tag != 'textarea') el.moveDown()
   						break;
   					default: return;
